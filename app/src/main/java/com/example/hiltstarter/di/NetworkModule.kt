@@ -1,13 +1,8 @@
 package com.example.hiltstarter.di
 
 import com.example.hiltstarter.BuildConfig
-import com.example.hiltstarter.utils.sharedPref.preferences.PreferencesManager
-import com.example.hiltstarter.di.qualifier.NetworkMoshi
 import com.example.hiltstarter.network.api.ApiService
-import com.example.hiltstarter.utils.NullToBooleanAdapter
-import com.example.hiltstarter.utils.NullToEmptyStringAdapter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.example.hiltstarter.utils.sharedPref.preferences.PreferencesManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +11,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -27,28 +22,11 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(factory: MoshiConverterFactory, okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.MAIN_URL)
-            .addConverterFactory(factory)
+            .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
-            .build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideMoshiConverterFactory(@NetworkMoshi moshi: Moshi): MoshiConverterFactory {
-        return MoshiConverterFactory.create(moshi)
-    }
-
-    @Singleton
-    @NetworkMoshi
-    @Provides
-    fun provideMoshi(): Moshi {
-        return Moshi.Builder()
-            .add(NullToBooleanAdapter())
-            .add(NullToEmptyStringAdapter())
-            .addLast(KotlinJsonAdapterFactory())
             .build()
     }
 
@@ -90,10 +68,7 @@ object NetworkModule {
                 .addHeader("Content-Type", "application/json")
                 .build()
 
-
-            val response = it.proceed(
-                request
-            )
+            val response = it.proceed(request)
 
             response
         }
@@ -102,6 +77,7 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create()
+
 
 
 }
