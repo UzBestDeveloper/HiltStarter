@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.preference.PreferenceManager
 import com.example.hiltstarter.utils.Constants.DEFAULT_STRING
 
+
 class PreferencesManager(
     private val context: Context
 ) {
@@ -15,18 +16,18 @@ class PreferencesManager(
     }
 
     var token by PreferencesDelegate(preferences, ACCESS_TOKEN, DEFAULT_STRING)
-    var login by PreferencesDelegate(preferences, LOGIN, DEFAULT_STRING)
-    var password by PreferencesDelegate(preferences, PASSWORD, DEFAULT_STRING)
     var language by PreferencesDelegate(preferences, LANGUAGE, "uz")
-    var fingerPrint by PreferencesDelegate(preferences, FINGERPRINT, false)
-    var pinCode by PreferencesDelegate(preferences, PINCODE, DEFAULT_STRING)
+    var loginKey by PreferencesDelegate(preferences, LOGIN_KEY, DEFAULT_STRING)
+    var trustedDevice by PreferencesDelegate(preferences, TRUSTED_DEVICE, DEFAULT_STRING)
+    var requestID by PreferencesDelegate(preferences, REQUEST_ID, DEFAULT_STRING)
+    var auth by PreferencesDelegate(preferences, AUTH, DEFAULT_STRING)
 
     companion object {
         private const val ACCESS_TOKEN = "access_token"
-        private const val LOGIN = "login"
-        private const val PASSWORD = "password"
         private const val LANGUAGE = "language"
-        private const val FINGERPRINT = "fingerPrint"
-        private const val PINCODE = "pinCode"
+        private const val LOGIN_KEY = "login-key"
+        private const val TRUSTED_DEVICE = "trusted-device"
+        private const val REQUEST_ID = "requestId"
+        private const val AUTH = "auth"
     }
 }

@@ -12,12 +12,15 @@ import android.widget.FrameLayout
 import androidx.annotation.CallSuper
 import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.hiltstarter.utils.color
 import com.example.hiltstarter.utils.px
 import com.example.hiltstarter.utils.screenResolution
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.launch
 
 abstract class BaseBottomSheetDialogFragment(
     @LayoutRes private val resId: Int
@@ -50,7 +53,11 @@ abstract class BaseBottomSheetDialogFragment(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated { collect() }
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+                collect()
+            }
+        }
         observe()
         setup()
         clicks()

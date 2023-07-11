@@ -2,6 +2,8 @@ package com.example.hiltstarter.di
 
 import com.example.hiltstarter.BuildConfig
 import com.example.hiltstarter.network.api.ApiService
+import com.example.hiltstarter.network.interceptors.AddCookiesInterceptor
+import com.example.hiltstarter.network.interceptors.ReceivedCookiesInterceptor
 import com.example.hiltstarter.utils.sharedPref.preferences.PreferencesManager
 import dagger.Module
 import dagger.Provides
@@ -35,12 +37,15 @@ object NetworkModule {
     fun provideOkHttpClient(
         appInterceptor: Interceptor,
         loggingInterceptor: HttpLoggingInterceptor,
+        prefs: PreferencesManager,
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(appInterceptor)
             .addInterceptor(loggingInterceptor)
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .writeTimeout(10, TimeUnit.SECONDS)
+            .addInterceptor(AddCookiesInterceptor(prefs))
+            .addInterceptor(ReceivedCookiesInterceptor(prefs))
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .build()
     }

@@ -1,12 +1,10 @@
 package com.example.hiltstarter.ui.fragments.home
 
 import androidx.fragment.app.viewModels
-import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.hiltstarter.R
 import com.example.hiltstarter.databinding.FragmentHomeBinding
 import com.example.hiltstarter.ui.base.BaseFragment
-import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,7 +16,7 @@ class HomeFragment : BaseFragment(
     private val viewModel: HomeViewModel by viewModels()
 
     override fun setup() {
-
+        viewModel.login()
     }
 
     override fun observe() {

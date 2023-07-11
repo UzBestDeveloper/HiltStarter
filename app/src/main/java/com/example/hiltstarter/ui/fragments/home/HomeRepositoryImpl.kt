@@ -1,4 +1,4 @@
-package com.example.elmakonpos.ui.fragments.auth
+package com.example.hiltstarter.ui.fragments.home
 
 import com.example.hiltstarter.network.api.ApiService
 import kotlinx.coroutines.flow.flow

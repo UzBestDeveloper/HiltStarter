@@ -8,13 +8,14 @@ import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.annotation.ColorInt
 import androidx.annotation.LayoutRes
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.hiltstarter.R
 import com.example.hiltstarter.utils.color
-import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 abstract class BaseFragment(
     @LayoutRes contentLayoutId: Int
@@ -27,7 +28,11 @@ abstract class BaseFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.rootView.setBackgroundColor(color(R.color.background))
         setup()
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated { collect() }
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+                collect()
+            }
+        }
         observe()
         clicks()
     }
