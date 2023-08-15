@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 34
 
     buildFeatures{
         viewBinding true
@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId "com.example.hiltstarter"
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -67,8 +67,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -85,19 +85,19 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.9'
 
     //Dagger Hilt
-    implementation 'com.google.dagger:hilt-android:2.46.1'
-    kapt 'com.google.dagger:hilt-compiler:2.46.1'
+    implementation 'com.google.dagger:hilt-android:2.47'
+    kapt 'com.google.dagger:hilt-compiler:2.47'
 
     //View binding
-    implementation 'com.github.kirich1409:viewbindingpropertydelegate:1.5.8'
+    implementation 'com.github.kirich1409:viewbindingpropertydelegate:1.5.9'
 
     //Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
 
     //Fragment KTX
-    implementation "androidx.fragment:fragment-ktx:1.6.0"
+    implementation "androidx.fragment:fragment-ktx:1.6.1"
 
     //Preferences
-    implementation "androidx.preference:preference-ktx:1.2.0"
+    implementation "androidx.preference:preference-ktx:1.2.1"
 
 }
