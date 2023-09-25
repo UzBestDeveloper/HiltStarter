@@ -82,7 +82,4 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create()
-
-
-
 }

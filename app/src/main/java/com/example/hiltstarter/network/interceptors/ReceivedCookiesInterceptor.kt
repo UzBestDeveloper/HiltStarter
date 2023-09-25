@@ -1,10 +1,13 @@
 package com.example.hiltstarter.network.interceptors
 
 import com.example.hiltstarter.utils.sharedPref.preferences.PreferencesManager
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import okhttp3.Headers
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
+import java.lang.reflect.Type
 
 class ReceivedCookiesInterceptor(private val prefs: PreferencesManager) :
     Interceptor {
@@ -37,7 +40,20 @@ class ReceivedCookiesInterceptor(private val prefs: PreferencesManager) :
             //saving trusted device
             if (headers.find { (_, value) -> value.contains("trusted-device") } != null) {
                 val trustedDevice = headers.find { (_, value) -> value.contains("trusted-device") }!!.second
-                prefs.trustedDevice = trustedDevice.substring(0, trustedDevice.indexOf(";"))
+
+                val json = prefs.trustedDeviceList
+                val type: Type = object : TypeToken<ArrayList<String>?>() {}.type
+                val gson = Gson()
+                val trustedDeviceList = mutableListOf<String>()
+
+                if (json.isNotEmpty()) {
+                    @Suppress("UNCHECKED_CAST")
+                    trustedDeviceList.addAll(gson.fromJson<Any>(json, type) as ArrayList<String>)
+                }
+
+                trustedDeviceList.add(trustedDevice.substring(0, trustedDevice.indexOf(";")))
+                val save: String = gson.toJson(trustedDeviceList)
+                prefs.trustedDeviceList = save
             }
 
 
