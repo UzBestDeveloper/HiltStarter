@@ -29,8 +29,11 @@
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <data android:scheme="https"
+                    android:host="tauth.ihmatest.uz" />
+
             </intent-filter>
         </activity>
 

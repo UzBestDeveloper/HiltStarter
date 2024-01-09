@@ -21,6 +21,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                'appAuthRedirectScheme': 'com.example.hiltstarter'
+        ]
     }
 
     buildTypes {
@@ -100,4 +103,5 @@ dependencies {
     //Preferences
     implementation "androidx.preference:preference-ktx:1.2.1"
 
+    implementation 'androidx.browser:browser:1.7.0'
 }
